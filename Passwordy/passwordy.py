@@ -39,6 +39,7 @@ def round_start():
     
     # generate new word
     curr_keyword = choose_pass()
+    print(curr_keyword)
     
     # start regular round loop
     round_loop(curr_keyword)  
@@ -94,23 +95,42 @@ def valid_guess(guess):
         input('Guesses must be exactly five letters. Press Enter to try a new word')
         return 'l' # too many letters
 
+# function to check guess to password and update board (matrix)
+def guess_check(guess, password):
+    print(guess, '\n', password)
+    matrix = ''
+    for n,v in enumerate(guess):
+        if guess[n] == password[n]:
+            matrix = matrix + 'O'
+        elif password.find(guess[n]) != -1:
+            matrix = matrix + 'x'
+        else:
+            matrix = matrix + '-'
+    return matrix
+    
 # fuction to loop the guesses in a round.
-def round_loop(password):
+def round_loop(p):
+
     rnd_cntr = 1
-    matrix = ['-----']
+    matrix = []
+    
     while rnd_cntr < 6:
-        g = input(f"\nRound: {rnd_cntr}\n\n{matrix}\n\nEnter your five letter guess: ")
-        if valid_guess(g) == 'y':
+        print(f'\nRound: {rnd_cntr}')
+        for i in matrix:
+            print(i)
+        g = input('Enter your five-letter guess: ')
+        if valid_guess(g) == 'v':
             input('Valid entry!')
+            matrix.append(guess_check(g, p))
             rnd_cntr += 1
         else:
+            print('continue')
             continue
-        rnd_cntr += 1
     else:
         a = input("""You have run out of guesses. Better luck next time!
 Return to the main menu?: """)
         if a.casefold() == 'y' or a.casefold() == 'yes':
-            print("menu")
+            print('menu')
             main_menu()
         else:
             print("quit")
