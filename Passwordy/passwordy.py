@@ -8,6 +8,11 @@
 
 import random
 
+# read the list of keywords and assign to variable
+with open('word_dict5.txt') as f:
+    poss_keywords = []
+    for i in f:
+        poss_keywords.append(i.strip())
 
 # function that displays the main menu and stores the user's selection.
 def main_menu():
@@ -29,9 +34,14 @@ def main_menu():
 
 # function that picks a random word and starts a new round.
 def round_start():
-    housekeeping()
+    # clean up
+    hskp()
+    
+    # generate new word
     curr_keyword = choose_pass()
     
+    # start regular round loop
+    round_loop(curr_keyword)  
     
 # function that displays the rules of the game and then returns to the main menu.
 def rules_game():
@@ -49,8 +59,7 @@ def rules_game():
     input('Press Enter to return to the Main Menu.')
     main_menu()
 
-# function that asks the user to confirm if they want to quit the 
-#  program and either quits or returns to the main menu.
+# function that asks the user to confirm if they want to quit the program.
 def quit_game():
     user_selection = input("Quit the program? (y/n): ")
     if user_selection.casefold() == 'y':
@@ -69,16 +78,45 @@ def choose_pass():
     #print(rand_num)
     #print(curr_keyword)
 
-# function to clean up between rounds
-def housekeeping():
+# function to clean up between round.
+def hskp():
     pass
 
+# function to check if a guess is a valid entry.
+def valid_guess(guess):
+    if len(guess) == 5:
+        if guess.casefold() in poss_keywords:
+            return 'v' # valid
+        else:
+            input('Not a valid word. Press Enter to try a new word')
+            return 'i' # invalid
+    else:
+        input('Guesses must be exactly five letters. Press Enter to try a new word')
+        return 'l' # too many letters
 
-# read the list of keywords and assign to variable
-with open('word_list.txt') as f:
-    poss_keywords = []
-    for i in f:
-        poss_keywords.append(i.strip())
+# fuction to loop the guesses in a round.
+def round_loop(password):
+    rnd_cntr = 1
+    matrix = ['-----']
+    while rnd_cntr < 6:
+        g = input(f"\nRound: {rnd_cntr}\n\n{matrix}\n\nEnter your five letter guess: ")
+        if valid_guess(g) == 'y':
+            input('Valid entry!')
+            rnd_cntr += 1
+        else:
+            continue
+        rnd_cntr += 1
+    else:
+        a = input("""You have run out of guesses. Better luck next time!
+Return to the main menu?: """)
+        if a.casefold() == 'y' or a.casefold() == 'yes':
+            print("menu")
+            main_menu()
+        else:
+            print("quit")
+            quit()
+            
+
 
 # for debugging 
 #print(poss_keywords)
