@@ -109,7 +109,7 @@ def valid_guess(guess):
 
 # function to check guess to password and update board (matrix)
 def guess_check(guess, password):
-    print(guess, '\n', password)
+    #print(guess, '\n', password)
     matrix = ''
     for n,v in enumerate(guess):
         if guess[n] == password[n]:
