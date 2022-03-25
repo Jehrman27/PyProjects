@@ -1,0 +1,3 @@
+add guessed word into game board
+add letters known to not be in the password (alphabet starts uppercase, then move letters lowercase when found to not be in the password)
+add total rounds in intructions
