@@ -34,9 +34,6 @@ def main_menu():
 
 # function that picks a random word and starts a new round.
 def round_start():
-    # clean up
-    hskp()
-    
     # generate new word
     curr_keyword = choose_pass()
     #print(curr_keyword)
@@ -74,15 +71,6 @@ def choose_pass():
     random.seed()
     rand_num = random.randint(0,len(poss_keywords)-1)
     return poss_keywords[rand_num]
-    # for debugging
-    #curr_keyword = poss_keywords[rand_num]
-    #print(len(poss_keywords))
-    #print(rand_num)
-    #print(curr_keyword)
-
-# function to clean up between round.
-def hskp():
-    pass
 
 # function to inform the user they won.
 def winner(r, m, p):
@@ -135,11 +123,11 @@ def round_loop(p):
         g = input('Enter your five-letter guess: ')
         if valid_guess(g) == 'v':
             matrix.append(guess_check(g, p))
-            if matrix[-1] == 'OOOOO':
+            matrix.append(g.upper())
+            if matrix[-2] == 'OOOOO':
                 winner(rnd_cntr, matrix, p)
             rnd_cntr += 1
         else:
-            print('continue')
             continue
     else:
         a = input("""You have run out of guesses. Better luck next time!
@@ -152,19 +140,13 @@ Return to the main menu?: """)
             quit()
             
 
-
-# for debugging 
-#print(poss_keywords)
-#choose_pass()
-
+#---------------------------------------------------------
 
 # Welcome message
-print("Welcome to Wurdle! The game of guessing words!")
+print("Welcome to Passwordy! The game of guessing passwords!")
 
 # Start main loop
 main_menu()
 
 # for debugging
 #print(user_selection)
-
-
