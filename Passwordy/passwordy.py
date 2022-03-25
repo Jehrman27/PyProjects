@@ -39,7 +39,7 @@ def round_start():
     
     # generate new word
     curr_keyword = choose_pass()
-    print(curr_keyword)
+    #print(curr_keyword)
     
     # start regular round loop
     round_loop(curr_keyword)  
@@ -83,6 +83,18 @@ def choose_pass():
 def hskp():
     pass
 
+# function to inform the user they won.
+def winner(r, m, p):
+    for i in m:
+        print(i)
+    print("Password guessed correctly! Congratulations!")
+    print("You guess correctly on round ", r)
+    c = input('would you like to return to the main menu? ')
+    if c.casefold() == 'y' or c.casefold() == 'yes':
+        main_menu()
+    else:
+        quit()
+
 # function to check if a guess is a valid entry.
 def valid_guess(guess):
     if len(guess) == 5:
@@ -115,13 +127,15 @@ def round_loop(p):
     matrix = []
     
     while rnd_cntr < 6:
+
         print(f'\nRound: {rnd_cntr}')
         for i in matrix:
             print(i)
         g = input('Enter your five-letter guess: ')
         if valid_guess(g) == 'v':
-            input('Valid entry!')
             matrix.append(guess_check(g, p))
+            if matrix[-1] == 'OOOOO':
+                winner(rnd_cntr, matrix, p)
             rnd_cntr += 1
         else:
             print('continue')
