@@ -52,8 +52,8 @@ def rules_game():
     - When you submit a valid guess, the computer will tell you whether each letter is one of three states:
     
     \tO --> Correct letter and position
-    \tW --> Correct letter but wrong position
-    \tx --> Letter is not in the keyword
+    \tx --> Correct letter but wrong position
+    \t- --> Letter is not in the keyword
     
     - Letters can repeat in the word, but it is up to you to figure out if that is the case.
     """)
