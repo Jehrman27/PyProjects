@@ -75,7 +75,7 @@ def start_game():
 				*valid_cells
 				)
 		cm = update_board(p_dict[active_player], int(move), cm)
-		#clear_screen()
+		clear_screen()
 		display_board(cm)
 		yyy = check_game_end(cm, p_dict[active_player])
 		print (yyy)
