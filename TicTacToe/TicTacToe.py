@@ -133,13 +133,6 @@ def check_game_end(cm, token):
 	diags = [[6,4,2],[0,4,8]]
 	checks = rows + cols + diags
 
-	match = 0
-	for cell in cm:
-		if cell != ' ':
-			match += 1
-			if match == 9:
-				return 'tie'
-
 	for row in checks:
 		match = 0
 		for cell in row:
@@ -150,6 +143,13 @@ def check_game_end(cm, token):
 				continue
 			else:
 				break
+
+		match = 0
+	for cell in cm:
+		if cell != ' ':
+			match += 1
+			if match == 9:
+				return 'tie'
 
 	return 'continue'
 
