@@ -6,10 +6,11 @@ using the standard rules from Wikipedia:
 -For words that begin with consonant sounds, all letters before the initial
     vowel are placed at the end of the word sequence. Then, "ay" is added.
 -When words begin with consonant clusters, the whole sound is added to the end.
--For words that begin with vowel sounds, 'yay' is appended to the end, 
+-For words that begin with vowel sounds, 'yay' is appended to the end,
     with no modifications to the beginning onset.
 """
 import re
+import sys
 
 
 def str_cluster(word):
@@ -19,31 +20,37 @@ def str_cluster(word):
     for letter in word:
         if letter in vowels:
             return position
-        else:
-            position += 1
+        position += 1
 
 
 print('Igpay Atinlay Converter')
 print('This program will convert English phrases into Pig Latin.')
 
-user_input = input('Please enter the phrase you want to convert: ')
 
-# Parse user input by words and punctuation.
-input_split = re.findall(r"[\w']+|[\w'\w]+|[.,!?]",user_input)
+APP_LOOP = True
+while APP_LOOP:
+    user_input = input('Please enter the phrase you want to convert: ')
 
-# Convert words to pig latin, while leaving punctuation in place.
-igpayed = ''
-for item in input_split:
-    if re.search(r"[.,!?]",item):
-        igpayed += (item + " ")
-        continue
-    else:
-        pos = str_cluster(item)
-        if pos == 0:
-            igpayed += (item + "yay ")
+    # Parse user input by words and punctuation.
+    input_split = re.findall(r"[\w']+|[\w'\w]+|[.,!?]",user_input)
+
+    # Convert words to pig latin, while leaving punctuation in place.
+    igpayed = ''
+    for item in input_split:
+        if re.search(r"[.,!?]",item):
+            igpayed += (item + " ")
         else:
-            x = item[pos:]
-            x += item[:pos]
-            igpayed += (x + "ay ")
-            
-print(igpayed)
+            pos = str_cluster(item)
+            if pos == 0:
+                igpayed += (" " + item + "yay")
+            else:
+                x = item[pos:]
+                x += item[:pos]
+                igpayed += (" " + x + "ay")
+
+    print(igpayed[1:])
+
+    if input(
+            "Would you like to enter another phrase? (y/n): "
+            ).casefold() == 'n':
+        sys.exit()
